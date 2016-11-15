@@ -8,22 +8,18 @@ public class WIComponent {
 	private String captionI18Key;
 	private ComponentType componentType;
 	private ComponentDataType componentDataType;
-	private String inputValue; // File relative path(IMAGE/PDF), CSV or REST
-								// URL(CHECK, RADIO, SELECT, MULTI_SELECT),
-								// CUSTOM(Custom compoenent class name, e.g:
-								// com.infinira.mes.common.component.CarrierMarriage
-								// extends CustomComponent)
+    // File relative path(IMAGE/PDF), CSV or REST URL(CHECK, RADIO, SELECT, MULTI_SELECT), CUSTOM(Custom compoenent class name, 
+    // e.g: com.infinira.mes.common.component.CarrierMarriage extends CustomComponent)
+	private String inputValue;
 	private int width;
 	private int height;
 	private Unit unit;
-	private boolean enforceValidation; // TRUE: VALIDATE MIN_VALUE & MAX_VALUE,
-										// FALSE: LCL & UCL,
-										// if(value > UCL || value < LCL),
-										// enforce comment and add it as defect.
+    // TRUE: VALIDATE MIN_VALUE & MAX_VALUE, FALSE: LCL & UCL, if(value > UCL || value < LCL), enforce comment and add it as defect.
+	private boolean enforceValidation; 
 	private double minValue;
 	private double maxValue;
-	private Map<String, String> validations; // Key: Regex; Value: Validation
-												// message I18Key
+    // Key: Regex; Value: Validation message I18Key
+	private Map<String, String> validations;
     // For equipment integration, this Java code, when executed, should provide the runtime value for this component.
 	private String equipmentIntegrationScript;
 
