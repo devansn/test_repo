@@ -1,5 +1,5 @@
 task hello {
    doLast {
-      println 'test build.....'
+      println 'test build.....sd'
    }
 }
