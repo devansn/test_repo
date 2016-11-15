@@ -24,11 +24,8 @@ public class WIComponent {
 	private double maxValue;
 	private Map<String, String> validations; // Key: Regex; Value: Validation
 												// message I18Key
-	private String equipmentIntegrationScript; // For equipment integration,
-												// this Java code, when
-												// executed,
-												// should provide the runtime
-												// value for this component.
+    // For equipment integration, this Java code, when executed, should provide the runtime value for this component.
+	private String equipmentIntegrationScript;
 
 	public Long getComponentKey() {
 		return componentKey;
@@ -133,5 +130,4 @@ public class WIComponent {
 	public void setEquipmentIntegrationScript(String equipmentIntegrationScript) {
 		this.equipmentIntegrationScript = equipmentIntegrationScript;
 	}
-
 }
