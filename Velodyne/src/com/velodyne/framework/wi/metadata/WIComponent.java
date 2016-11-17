@@ -5,6 +5,7 @@ import java.util.Map;
 public class WIComponent {
 
 	private Long componentKey; // PK
+	private int componentSequence;
 	private String captionI18Key;
 	private ComponentType componentType;
 	private ComponentDataType componentDataType;
@@ -29,6 +30,14 @@ public class WIComponent {
 
 	public void setComponentKey(Long componentKey) {
 		this.componentKey = componentKey;
+	}
+
+	public int getComponentSequence() {
+		return componentSequence;
+	}
+
+	public void setComponentSequence(int componentSequence) {
+		this.componentSequence = componentSequence;
 	}
 
 	public String getCaptionI18Key() {

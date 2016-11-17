@@ -1,13 +1,16 @@
 package com.velodyne.framework.wi.metadata;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WorkInstruction {
 
 	private Long workInstructionKey; // OBJECT_KEY
 	private Long wiListKey; // InstructionListKey
 	private String station;
+	private String route;
 	private String taskNumber;
 	private String descriptionI18NKey;
 	private String category;
@@ -43,6 +46,14 @@ public class WorkInstruction {
 
 	public void setStation(String station) {
 		this.station = station;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
 	}
 
 	public String getTaskNumber() {
@@ -131,5 +142,24 @@ public class WorkInstruction {
 
 	public void setChildWIMap(Map<Long, WorkInstruction> childWIMap) {
 		this.childWIMap = childWIMap;
+	}
+
+	public void addChild(WorkInstruction workInstruction) {
+		if(null == this.childWIMap) {
+			this.childWIMap = new LinkedHashMap<>();
+		}
+		this.childWIMap.put(workInstruction.getWorkInstructionKey(), workInstruction);
+	}
+	
+	public boolean isLeaf() {
+		return (null == this.childWIMap || this.childWIMap.isEmpty());
+	}
+	
+	public Long getLastChildId() {
+		if(isLeaf()) {
+			return null;
+		}
+		Set<Long> keySet = this.childWIMap.keySet();
+		return (Long) keySet.toArray()[keySet.size() - 1];
 	}
 }
