@@ -1,13 +1,16 @@
 package com.velodyne.framework.wi.metadata;
 
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import com.rockwell.discrete.enums.Status;
 
 public class WorkInstruction {
 
 	private Long workInstructionKey; // OBJECT_KEY
 	private Long wiListKey; // InstructionListKey
 	private String station;
+	private String route;
 	private String taskNumber;
 	private String descriptionI18NKey;
 	private String category;
@@ -15,11 +18,22 @@ public class WorkInstruction {
 	private String partNumber;
 	private boolean reportOut; // Send to ERP
 	private long cycleTime; // Progress bar cycle time in seconds
-	private UIType uiType; // POPUP, SIMPLE - to show instruction on a popup,
-							// for eg.
+	private UIType uiType; // POPUP, SIMPLE - to show instruction on a popup
 	private Long wiParent; // To maintain a WI hierarchy
-	private List<WIComponent> components;
+	private Map<Long, WIComponent> components;
 	private Map<Long, WorkInstruction> childWIMap;
+	
+	private Status status;
+
+	public WorkInstruction(Long workInstructionKey, String taskNumber, String category, 
+	        String descriptionI18NKey, String partNumber, Status status) {
+	    this.workInstructionKey = workInstructionKey;
+        this.taskNumber = taskNumber;
+        this.category = category;
+        this.descriptionI18NKey = descriptionI18NKey;
+        this.partNumber = partNumber;
+        this.status = status;
+    }
 
 	public Long getWorkInstructionKey() {
 		return workInstructionKey;
@@ -43,6 +57,14 @@ public class WorkInstruction {
 
 	public void setStation(String station) {
 		this.station = station;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
 	}
 
 	public String getTaskNumber() {
@@ -117,11 +139,19 @@ public class WorkInstruction {
 		this.wiParent = wiParent;
 	}
 
-	public List<WIComponent> getComponents() {
+	public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Map<Long, WIComponent> getComponents() {
 		return components;
 	}
 
-	public void setComponents(List<WIComponent> components) {
+	public void setComponents(Map<Long, WIComponent> components) {
 		this.components = components;
 	}
 
@@ -131,5 +161,24 @@ public class WorkInstruction {
 
 	public void setChildWIMap(Map<Long, WorkInstruction> childWIMap) {
 		this.childWIMap = childWIMap;
+	}
+
+	public void addChild(WorkInstruction workInstruction) {
+		if(null == this.childWIMap) {
+			this.childWIMap = new LinkedHashMap<>();
+		}
+		this.childWIMap.put(workInstruction.getWorkInstructionKey(), workInstruction);
+	}
+	
+	public boolean isLeaf() {
+		return (null == this.childWIMap || this.childWIMap.isEmpty());
+	}
+	
+	public Long getLastChildId() {
+		if(isLeaf()) {
+			return null;
+		}
+		Set<Long> keySet = this.childWIMap.keySet();
+		return (Long) keySet.toArray()[keySet.size() - 1];
 	}
 }
