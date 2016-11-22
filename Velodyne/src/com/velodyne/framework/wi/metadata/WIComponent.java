@@ -22,8 +22,6 @@ public class WIComponent {
 	private Map<String, String> validations;
     // For equipment integration, this Java code, when executed, should provide the runtime value for this component.
 	private String equipmentIntegrationScript;
-
-	
 	
 	public WIComponent(Long componentKey, int componentSequence, String captionI18Key, ComponentType componentType,
             ComponentDataType componentDataType, String inputValue, String width, String height, Unit unit,
